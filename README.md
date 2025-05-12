@@ -1,5 +1,5 @@
 # Wazuh-Logstash-Suricata-Guide
-Guide to building a labSIEM system using Wazuh, Logstash implementing Winlogbeat and Suricata.
+Guide to building a SIEM lab using Wazuh, Logstash implementing Winlogbeat and Suricata.
 
 ### Descripción
 Este repositorio es una guía Para implementar un Servidor WAZUH-SIEM(basado en Opensearch) el cual esta formado por WAZUH-INDEXER como motor de busqueda, WAZUH-MANAGER quien analiza los datos para generar alertas y WAZUH-DASHBOARD que funciona como interfaz web para visualizar los datos indexados y las alertas. Asi mismo cada ENDPOINT que se quiera monitorizar debe contar con un servicio WAZUH-AGENT.</br>

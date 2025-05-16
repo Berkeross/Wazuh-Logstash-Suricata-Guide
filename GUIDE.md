@@ -34,6 +34,7 @@ Teniendo el servidor en funcionamiento es necesarios ingresar los `agentes`, est
 
 Con estos se puede empezar a visualizar los logs y alertas que generon los agentes dentro del dashbard.
 
+### Logstash
 
 
 

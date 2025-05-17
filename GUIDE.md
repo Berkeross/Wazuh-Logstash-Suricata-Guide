@@ -116,6 +116,70 @@ Para verificar que el sistema esta en completo funcionamiento pasados 30 segundo
 Dentro de todos los endpoints donde se instalo `Wazuh-Agent` se debe instalar la herramienta que esta intentando escucha logstash. Winlogbeat se ocupa de mandar los logs que wazuh-agent no detecta o no considere importantes, este funciona unicamente dentro de los sistemas windows pero existen otros `beats` que funcionan para multiples OS.
 
 Primero se debe descargar el archivo `.zip` desde la pagina [oficial](https://www.elastic.co/es/downloads/beats/winlogbeat). Con el archivo descargado se debe descomprimir en la ruta `C:\Program Files\winlogbeat`.</br>
-Dentro de la carpeta es necesario editar el archivo `winlogbeat.yml` y cambiar 
+Dentro de la carpeta es necesario editar el archivo [`winlogbeat.yml`](/Conf-File/winlogbeat.yml) y cambiar las siguientes opciones dentro de la seccion **Outputs**.
+
+```
+# ================================== Outputs ===================================
+
+# Configure what output to use when sending the data collected by the beat.
+
+# ---------------------------- Elasticsearch Output ----------------------------
+#output.elasticsearch:   <= colocar un "#" en todas las opciones del elastic output 
+  # Array of hosts to connect to.
+  #hosts: ["localhost:9200"]
+
+  # Protocol - either `http` (default) or `https`.
+  #protocol: "https"
+
+  # Authentication credentials - either API key or username/password.
+  #api_key: "id:api_key"
+  #username: "elastic"
+  #password: "changeme"
+
+  # Pipeline to route events to security, sysmon, or powershell pipelines.
+  #pipeline: "winlogbeat-%{[agent.version]}-routing"
+
+# ------------------------------ Logstash Output -------------------------------
+output.logstash:   <= quitar el "#" las siguientes dos opciones
+  # The Logstash hosts
+  hosts: ["<IP-WAZUHSERVER>:5044"]  <=
+
+  # Optional SSL. By default is off.
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
+```
+
+Una vez terminada la configuracion, se debe guardar en el mismo formato "`.conf`".</br>
+para instalar winlogbeat se debe ejecutar el archivo `install-service-winlogbeat.ps1`, este arechivo se debe ejecutrar dentro de powershell en modo **Administrador**, dentro de Powershell deberia verse asi.
+
+```shell
+C:\Program Files\winlogbeat>.\install-service-winlogbeat.ps1
+```
+
+> [!NOTE]
+> Si el comando falla puede ser posible que se trate de los permisos del Firewall, se puede solucionar utilizando el comando `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` y aplicarlo utilizando el comando `Acept to all`.
+
+con el servicio instalado se activa utilizando el comando `Start-Service winlogbeat`, si al utilizar este comando se genera un error se puede verificar la configuración utilizando `.\winlogbeat.exe test config`.
+
+Pasado un pequeño lapso de timepo se deberia poder ver los logs en "`Menu => Indexer Management => Index Management`".
+
+Para poder agrupar estos logs es necesario dirigirse a “`Menu => Dashboard-manager => Index patterns`”, desde este lugar se puede
+crear un grupo de indexadores en el boton `Create index pattern`.
+
+### Suricata
+
+
+
+
+
+
+
+
 
 

@@ -115,6 +115,7 @@ Para verificar que el sistema esta en completo funcionamiento pasados 30 segundo
 
 Dentro de todos los endpoints donde se instalo `Wazuh-Agent` se debe instalar la herramienta que esta intentando escucha logstash. Winlogbeat se ocupa de mandar los logs que wazuh-agent no detecta o no considere importantes, este funciona unicamente dentro de los sistemas windows pero existen otros `beats` que funcionan para multiples OS.
 
-Primero se debe descargar desde la pagina oficia
+Primero se debe descargar el archivo `.zip` desde la pagina [oficial](https://www.elastic.co/es/downloads/beats/winlogbeat). Con el archivo descargado se debe descomprimir en la ruta `C:\Program Files\winlogbeat`.</br>
+Dentro de la carpeta es necesario editar el archivo `winlogbeat.yml` y cambiar 
 
 

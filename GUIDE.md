@@ -111,11 +111,12 @@ sudo systemctl Start logstash
 
 Para verificar que el sistema esta en completo funcionamiento pasados 30 segundos utilizar el comando `sudo systemctl status logstash` 
 
-### Winlogbeat
+### Winlogbeat y Filebeat
 
 Dentro de todos los endpoints donde se instalo `Wazuh-Agent` se debe instalar la herramienta que esta intentando escucha logstash. Winlogbeat se ocupa de mandar los logs que wazuh-agent no detecta o no considere importantes, este funciona unicamente dentro de los sistemas windows pero existen otros `beats` que funcionan para multiples OS.
 
-Primero se debe descargar el archivo `.zip` desde la pagina [oficial](https://www.elastic.co/es/downloads/beats/winlogbeat). Con el archivo descargado se debe descomprimir en la ruta `C:\Program Files\winlogbeat`.</br>
+Primero se debe descargar el archivo `.zip` desde la pagina oficial de [Winlogbeat](https://www.elastic.co/es/downloads/beats/winlogbeat) o [Filebeat](https://www.elastic.co/es/downloads/beats/filebeat). La diferencia entre estos se encunetra en que **Winlogbeat** captura logs unicamente de windows y **Filebeat** permite capturar logs desde cualquier Sistema operativo. Para el ejemplo se va a explicar la instalacion de Winlogbeat, aun asi la instalación funciona casi igual para ambos.</br>
+Con el archivo descargado se debe descomprimir en la ruta `C:\Program Files\winlogbeat`.</br>
 Dentro de la carpeta es necesario editar el archivo [`winlogbeat.yml`](/Conf-File/winlogbeat.yml) y cambiar las siguientes opciones dentro de la seccion **Outputs**.
 
 ```
@@ -174,12 +175,45 @@ crear un grupo de indexadores en el boton `Create index pattern`.
 
 ### Suricata
 
+Wazuh permite integración con Suricata, un sistema de detección de intrusiones basado en la red (NIDS) para mejorar la detección de amenazas mediante la supervisión y el análisis del tráfico de la red. Suricata puede proporcionar información adicional sobre la seguridad de su red con sus capacidades de inspección del tráfico de red.</br>
+Suricata se puede integrar Tanto en OS Linux como en Windows, Para esta guia solo se va a guiar para la instalación de linux, aun asi la guia de instalacion en Windows se va a dejar [aqui](https://letsdefend.io/blog/how-to-install-and-configure-suricata-on-windows).
 
+Primero se agregrega el reposityorio a APT y se instala Suricata.
 
+```
+sudo add-apt-repository ppa:oisf/suricata-stable
+sudo apt-get update
+sudo apt-get install suricata -y
+```
 
+Luego se descargan las `rules` con las que funcione Suricata
 
+```
+cd /tmp/ && curl -LO https://rules.emergingthreats.net/open/suricata-6.0.8/emerging.rules.tar.gz
+sudo tar -xvzf emerging.rules.tar.gz && sudo mkdir /etc/suricata/rules && sudo mv rules/*.rules /etc/suricata/rules/
+sudo chmod 640 /etc/suricata/rules/*.rules
+```
 
+Antes de iniciar el sistema es necesario configurar el archivo `.yaml` en `/etc/suricata/suricata.yaml`, este se edita utilizando el comando nano y se deben cambiar las siguientes secciones.
 
+```
+HOME_NET: "<LINUXorWIN_IP>"
+EXTERNAL_NET: "any"
 
+-----------------------------------------------------
 
+# Global stats configuration
+stats:
+enabled: yes
 
+---------------------------------------------------
+
+# Linux high speed capture support
+af-packet:
+  - interface: enp0s3
+
+----------------------------------------------------
+
+default-rule-path: /etc/suricata/rules
+rule-files:
+- "*.rules"

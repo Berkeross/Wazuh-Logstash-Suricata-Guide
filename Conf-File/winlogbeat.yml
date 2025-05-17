@@ -61,7 +61,7 @@ setup.template.settings:
 
 # The name of the shipper that publishes the network data. It can be used to group
 # all the transactions sent by a single shipper in the web interface.
-name: alejo
+name: <Nombre-del-EndPoint>
 
 # The tags of the shipper are included in their field with each
 # transaction published.
@@ -137,7 +137,7 @@ name: alejo
 # ------------------------------ Logstash Output -------------------------------
 output.logstash:
   # The Logstash hosts
-  hosts: ["192.168.0.114:5044"]
+  hosts: ["<IP-DEL-SERVER>:5044"]
 
   # Optional SSL. By default is off.
   # List of root certificates for HTTPS server verifications

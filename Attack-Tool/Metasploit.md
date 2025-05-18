@@ -15,5 +15,5 @@ Con el archivo descargado se debe instalar utilizando el comando.
 sudo dpkg -i metasploit-framework_<LA_VERSIÓN_A_UTILIZAR>_amd64.deb
 ```
 
-Una vez finalizado metasploit quedaria instalado en el Sistema Operativo. Para ejecutar el primer comando se debe utilizar `msfconsole`, en este momento el framework te pregunta si "te gustaria configurar una nueva Database" donde se debe responder `yes`, una vez respondido se prosedera a iniciarse metasplit.
+Una vez finalizado metasploit quedaria instalado en el Sistema Operativo. Para ejecutar el primer comando se debe utilizar `msfconsole`, en este momento el framework te pregunta si "te gustaria configurar una nueva Database" donde se debe responder `yes`, una vez respondido se prosedera a iniciarse metasplit.<br>
 Con metasploit en funcionamiento los comandos para ingresar y salir serian respectivamente, `msfconsole` y `exit`.

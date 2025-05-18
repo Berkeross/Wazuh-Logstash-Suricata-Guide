@@ -238,7 +238,18 @@ Con la configuración finalizada, se debe reiniciar utilizando `sudo systemctl r
 
 Para poder poner a prueba el laboratorio es necesario utilizar una herramienta de **ataques simulados**, cada sistema operativo tiene sus propias herramientas. Para linux se utiliza el framework **Metasploit** y para Windows se utiliza **Atomic-Red-Team**. Cada herramienta tiene una pequeña guia de istalacion en la carpeta [Attack-Tool](/Attack-Tool).</br>
 
-Con estas herramientas se pueden ejecutar comandos como por ejemplo `Invoke-AtomicTest T1071 -TestNumbers 1,2 -ShowDetails` para Atomic-Red-Team o `msfconsole -q -x "use auxiliary/scanner/http/http_version; set RHOSTS <IP_OBJETIVO_LOCAL>; set RPORT 80; run; exit"` para Metasploit.<br>
+Con estas herramientas se pueden ejecutar los siguente comandos, como por ejemplo para Atomic-Red-Team.
+
+```shell
+Invoke-AtomicTest T1071 -TestNumbers 1,2 -ShowDetails
+```
+
+Para Metasploit el comando seria por ejemplo.
+ 
+```shell
+ msfconsole -q -x "use auxiliary/scanner/http/http_version; set RHOSTS <IP_OBJETIVO_LOCAL>; set RPORT 80; run; exit"
+```
+
 Estos comandos generan trafico en la red para que tanto Suricata como Wazu-Agent los detecte y genere logs donde visualizarlos en el dashboard.
 
 

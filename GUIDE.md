@@ -230,6 +230,9 @@ Una vez configurado dentro del **OS linux** se debe Reiniciar Suricata utilizand
 
 Con la configuración finalizada, se debe reiniciar utilizando `sudo systemctl restart wazuh-agent`. Con esto Wazuh-Server deveria estar recibiendo los logs de suricata.
 
+> [!TIP]
+> Una forma de verificar que Suricata funciona es utilizar el comando `ping -c 5 <LINUXorWIN_IP>` y con esto se deveria poder observar 
+
 ### Ataque
 
 

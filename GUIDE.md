@@ -217,7 +217,7 @@ rule-files:
 - "*.rules"
 ```
 
-Una vez configurado dentro del **OS linux** se debe Reiniciar Suricata utilizando `sudo systemctl restart suricata`. Una vez reiniciado y este no genere errores es momento de configurar el archivo [ossec.conf]() para que Wazuh-Agent, Para esto se ejecuta el comando `sudo nano /var/ossec/etc/ossec.conf` y agregando las siguientes lineas.
+Una vez configurado dentro del **OS linux** se debe Reiniciar Suricata utilizando `sudo systemctl restart suricata`. Una vez reiniciado y este no genere errores es momento de configurar el archivo [ossec.conf](/Conf-File/ossec.conf) para que Wazuh-Agent, Para esto se ejecuta el comando `sudo nano /var/ossec/etc/ossec.conf` y agregando las siguientes lineas.
 
 ```shell
 <ossec_config>
@@ -234,8 +234,10 @@ Con la configuración finalizada, se debe reiniciar utilizando `sudo systemctl r
 > Una forma de verificar que Suricata funciona es utilizar el comando `ping -c 5 <LINUXorWIN_IP>` y con esto se deveria poder observar los logs de la siguiente forma.
 > ![image](/Capturas/Suricata_Prueba.png)
 
-### Ataque
+### Herramienta de ataque y Simulación
 
+Para poder poner a prueba el laboratorio es necesario utilizar una herramienta de **ataques simulados**, cada sistema operativo tiene sus propias herramientas. Para linux se utiliza el framework **Metasploit** y para Windows se utilzia **Atomic-Red-Team**.</br>
 
+Cada herramienta tiene una pequeña guia de istalacion en la carpeta [Attack-Tool]().
 
 

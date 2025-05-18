@@ -241,7 +241,7 @@ Para poder poner a prueba el laboratorio es necesario utilizar una herramienta d
 Con estas herramientas se pueden ejecutar los siguente comandos, como por ejemplo para Atomic-Red-Team.
 
 ```shell
-Invoke-AtomicTest T1071 -TestNumbers 1,2 -ShowDetails
+Invoke-AtomicTest T1071 -ShowDetails
 ```
 
 Para Metasploit el comando seria por ejemplo.

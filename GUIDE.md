@@ -180,7 +180,7 @@ Suricata se puede integrar Tanto en OS Linux como en Windows, Para esta guia sol
 
 Primero se agregrega el reposityorio a APT y se instala Suricata.
 
-```
+```shell
 sudo add-apt-repository ppa:oisf/suricata-stable
 sudo apt-get update
 sudo apt-get install suricata -y
@@ -188,7 +188,7 @@ sudo apt-get install suricata -y
 
 Luego se descargan las `rules` con las que funcione Suricata
 
-```
+```shell
 cd /tmp/ && curl -LO https://rules.emergingthreats.net/open/suricata-6.0.8/emerging.rules.tar.gz
 sudo tar -xvzf emerging.rules.tar.gz && sudo mkdir /etc/suricata/rules && sudo mv rules/*.rules /etc/suricata/rules/
 sudo chmod 640 /etc/suricata/rules/*.rules
@@ -196,24 +196,42 @@ sudo chmod 640 /etc/suricata/rules/*.rules
 
 Antes de iniciar el sistema es necesario configurar el archivo `.yaml` en `/etc/suricata/suricata.yaml`, este se edita utilizando el comando nano y se deben cambiar las siguientes secciones.
 
-```
+```shell
 HOME_NET: "<LINUXorWIN_IP>"
 EXTERNAL_NET: "any"
 
 -----------------------------------------------------
 
-# Global stats configuration
 stats:
 enabled: yes
 
 ---------------------------------------------------
-
-# Linux high speed capture support
+ 
 af-packet:
-  - interface: enp0s3
+  - interface: <enp0s3 en linux - Ethernet en Win>
 
 ----------------------------------------------------
 
-default-rule-path: /etc/suricata/rules
+default-rule-path: <`/etc/suricata/rules` en linux o `C:\\Program File\\Suricata\\Rules\\` en Win>
 rule-files:
 - "*.rules"
+```
+
+Una vez configurado dentro del **OS linux** se debe Reiniciar Suricata utilizando `sudo systemctl restart suricata`. Una vez reiniciado y este no genere errores es momento de configurar el archivo `ossec.conf` para que Wazuh-Agent, Para esto se ejecuta el comando `sudo nano /var/ossec/etc/ossec.conf` y agregando las siguientes lineas.
+
+```shell
+<ossec_config>
+  <localfile>
+    <log_format>json</log_format>
+    <location>/var/log/suricata/eve.json</location>
+  </localfile>
+</ossec_config>
+```
+
+Con la configuración finalizada, se debe reiniciar utilizando `sudo systemctl restart wazuh-agent`. Con esto Wazuh-Server deveria estar recibiendo los logs de suricata.
+
+### Ataque
+
+
+
+

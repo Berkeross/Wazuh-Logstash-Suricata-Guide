@@ -217,7 +217,7 @@ rule-files:
 - "*.rules"
 ```
 
-Una vez configurado dentro del **OS linux** se debe Reiniciar Suricata utilizando `sudo systemctl restart suricata`. Una vez reiniciado y este no genere errores es momento de configurar el archivo `ossec.conf` para que Wazuh-Agent, Para esto se ejecuta el comando `sudo nano /var/ossec/etc/ossec.conf` y agregando las siguientes lineas.
+Una vez configurado dentro del **OS linux** se debe Reiniciar Suricata utilizando `sudo systemctl restart suricata`. Una vez reiniciado y este no genere errores es momento de configurar el archivo [ossec.conf]() para que Wazuh-Agent, Para esto se ejecuta el comando `sudo nano /var/ossec/etc/ossec.conf` y agregando las siguientes lineas.
 
 ```shell
 <ossec_config>
@@ -231,7 +231,8 @@ Una vez configurado dentro del **OS linux** se debe Reiniciar Suricata utilizand
 Con la configuración finalizada, se debe reiniciar utilizando `sudo systemctl restart wazuh-agent`. Con esto Wazuh-Server deveria estar recibiendo los logs de suricata.
 
 > [!TIP]
-> Una forma de verificar que Suricata funciona es utilizar el comando `ping -c 5 <LINUXorWIN_IP>` y con esto se deveria poder observar 
+> Una forma de verificar que Suricata funciona es utilizar el comando `ping -c 5 <LINUXorWIN_IP>` y con esto se deveria poder observar los logs de la siguiente forma.
+> ![image](/Capturas/Suricata_Prueba.png)
 
 ### Ataque
 
